@@ -1,0 +1,98 @@
+{
+  "name": "OnenessSwap Default List",
+  "timestamp": "2021-07-15T23:57:10.982Z",
+  "version": {
+    "major": 2,
+    "minor": 0,
+    "patch": 0
+  },
+  "tags": {},
+  "logoURI": "",
+  "keywords": ["swap", "default"],
+  "tokens": [
+    {
+      "chainId": 2140,
+      "address": "0x82c3349C289dB7D6513172Dd268ab917Be53D073",
+      "name": "Wrapped BTC",
+      "symbol": "WBTC",
+      "decimals": 18
+    },
+    {
+      "chainId": 2140,
+      "address": "0xbC3f1A7203b7f7EF3d6Fd1Da2d702dB952207825",
+      "name": "Tether USD",
+      "symbol": "USDT",
+      "decimals": 6
+    },
+    {
+      "chainId": 2140,
+      "address": "0x9BF054279893C80C84cd8C74C3be299BaB9C8a29",
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6
+    },
+    {
+      "chainId": 2140,
+      "address": "0x2591c267C905F4b4cf2e34029d69d49580a278c3",
+      "name": "Oneness USD",
+      "symbol": "oUsd",
+      "decimals": 6
+    },
+    {
+      "chainId": 2141,
+      "address": "0x82c3349C289dB7D6513172Dd268ab917Be53D073",
+      "name": "Wrapped BTC",
+      "symbol": "WBTC",
+      "decimals": 18
+    },
+    {
+      "chainId": 2141,
+      "address": "0xbC3f1A7203b7f7EF3d6Fd1Da2d702dB952207825",
+      "name": "Tether USD",
+      "symbol": "USDT",
+      "decimals": 6
+    },
+    {
+      "chainId": 2141,
+      "address": "0x9BF054279893C80C84cd8C74C3be299BaB9C8a29",
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6
+    },
+    {
+      "chainId": 2141,
+      "address": "0x2591c267C905F4b4cf2e34029d69d49580a278c3",
+      "name": "Oneness USD",
+      "symbol": "oUsd",
+      "decimals": 6
+    },
+    {
+      "chainId": 123666,
+      "address": "0x82c3349C289dB7D6513172Dd268ab917Be53D073",
+      "name": "Wrapped BTC",
+      "symbol": "WBTC",
+      "decimals": 18
+    },
+    {
+      "chainId": 123666,
+      "address": "0xbC3f1A7203b7f7EF3d6Fd1Da2d702dB952207825",
+      "name": "Tether USD",
+      "symbol": "USDT",
+      "decimals": 18
+    },
+    {
+      "chainId": 123666,
+      "address": "0x9BF054279893C80C84cd8C74C3be299BaB9C8a29",
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 18
+    },
+    {
+      "chainId": 123666,
+      "address": "0x2591c267C905F4b4cf2e34029d69d49580a278c3",
+      "name": "Oneness USD",
+      "symbol": "oUsd",
+      "decimals": 6
+    }
+  ]
+}

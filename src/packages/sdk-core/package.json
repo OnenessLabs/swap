@@ -1,0 +1,44 @@
+{
+  "name": "@uniswap/sdk-core",
+  "version": "1.0.10",
+  "license": "MIT",
+  "description": "⚒️ An SDK for building applications on top of Uniswap V3",
+  "type": "module",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "repository": "https://github.com/Uniswap/uniswap-sdk-core.git",
+  "keywords": [
+    "uniswap",
+    "ethereum"
+  ],
+  "scripts": {
+    "build": "tsdx build",
+    "start": "tsdx watch",
+    "test": "tsdx test",
+    "prepublishOnly": "tsdx build"
+  },
+  "dependencies": {
+    "@ethersproject/solidity": "^5.0.2",
+    "@uniswap/default-token-list": "2.0.0",
+    "big.js": "^5.2.2",
+    "decimal.js-light": "^2.5.0",
+    "jsbi": "^3.1.4",
+    "tiny-invariant": "^1.1.0",
+    "toformat": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/big.js": "^4.0.5",
+    "@types/jest": "^24.0.25",
+    "tsdx": "^0.14.1"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
+  }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support
+    url: https://twitter.com/Oneness_Labs
+    about: Please ask and answer questions here
+  - name: List a token
+    url: https://github.com/OnenessLabs
+    about: Any requests to add a token to OnenessSwap should go here
