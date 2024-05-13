@@ -1,10 +1,10 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { ChainId } from '@uniswap/sdk'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
-import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
+import { Web3ReactContextInterface } from '@web3-react/core'
 import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
-import { injected } from '../connectors'
+import { injected, walletconnect } from '../connectors'
 import { NetworkContextName } from '../constants'
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & { chainId?: ChainId } {
@@ -14,25 +14,36 @@ export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & 
 }
 
 export function useEagerConnect() {
-  const { activate, active } = useWeb3ReactCore() // specifically using useWeb3ReactCore because of what this hook does
+  const { activate, active, lastActive } = useWeb3ReactCore() // specifically using useWeb3ReactCore because of what this hook does
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
-    injected.isAuthorized().then(isAuthorized => {
-      if (isAuthorized) {
-        activate(injected, undefined, true).catch(() => {
-          setTried(true)
-        })
-      } else {
-        if (isMobile && window.ethereum) {
+    const tryInjected = () => {
+      injected.isAuthorized().then(isAuthorized => {
+        if (isAuthorized) {
           activate(injected, undefined, true).catch(() => {
             setTried(true)
           })
         } else {
-          setTried(true)
+          if (isMobile && window.ethereum) {
+            activate(injected, undefined, true).catch(() => {
+              setTried(true)
+            })
+          } else {
+            setTried(true)
+          }
         }
-      }
-    })
+      })
+    }
+    // try walletcconnect
+    if (lastActive === 'wc') {
+      activate(walletconnect, undefined, true).catch(() => {
+        tryInjected()
+      })
+    } else {
+      tryInjected()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activate]) // intentionally only running on mount (make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag

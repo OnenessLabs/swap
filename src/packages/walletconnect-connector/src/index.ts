@@ -205,7 +205,7 @@ export class WalletConnectConnector extends AbstractConnector {
   public async activate(desiredChainId = this.defaultChainId): Promise<ConnectorUpdate> {
     const provider = await this.isomorphicInitialize(desiredChainId)
 
-    if (provider.session && desiredChainId && desiredChainId === provider.chainId) {
+    if (provider.session && desiredChainId) {
       // WalletConnect exposes connected accounts, not chains: `eip155:${chainId}:${address}`
       const isConnectedToDesiredChain = provider.session.namespaces.eip155.accounts.some(account =>
         account.startsWith(`eip155:${desiredChainId}:`)
@@ -220,16 +220,14 @@ export class WalletConnectConnector extends AbstractConnector {
           `Unknown chain (${desiredChainId}). Make sure to include any chains you might connect to in the "chains" or "optionalChains" parameters when initializing WalletConnect.`
         )
       }
-      await this.switchChain(desiredChainId)
+      // await this.switchChain(desiredChainId)
     }
 
     // const cancelActivation = this.actions.startActivation()
 
     try {
       await provider.enable()
-      if (provider.connected && desiredChainId && desiredChainId !== provider.chainId) {
-        await this.switchChain(desiredChainId)
-      }
+      if (provider.session && desiredChainId) await this.switchChain(desiredChainId)
       // this.actions.update({ chainId: provider.chainId, accounts: provider.accounts })
       this.emitUpdate({ chainId: provider.chainId, account: provider.accounts[0] })
     } catch (error) {

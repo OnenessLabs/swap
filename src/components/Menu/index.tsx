@@ -194,17 +194,19 @@ export const NetworkSelector = () => {
 
   return (
     <StyledMenu ref={node as any}>
-      <StyledMenuButton
-        onClick={toggle}
-        style={{
-          fontWeight: 600,
-          background: supported ? 'none' : '#FD4040',
-          color: supported ? '#ab9127' : '#eee'
-        }}
-      >
-        {network?.name}
-        <img src={pending ? arrowDown : arrowDown} style={{ transform: open ? 'rotate(180deg)' : '' }} alt="" />
-      </StyledMenuButton>
+      {chainId && (
+        <StyledMenuButton
+          onClick={toggle}
+          style={{
+            fontWeight: 600,
+            background: supported ? 'none' : '#FD4040',
+            color: supported ? '#ab9127' : '#eee'
+          }}
+        >
+          {network?.name}
+          <img src={pending ? arrowDown : arrowDown} style={{ transform: open ? 'rotate(180deg)' : '' }} alt="" />
+        </StyledMenuButton>
+      )}
 
       {open && (
         <MenuFlyout>

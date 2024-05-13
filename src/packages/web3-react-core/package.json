@@ -1,0 +1,19 @@
+{
+  "name": "@web3-react/core",
+  "AKA": "@web3-react/core@6.1.9",
+  "version": "6.1.9",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "dependencies": {
+    "@ethersproject/keccak256": "^5.0.0-beta.130",
+    "@web3-react/types": "^6.0.7",
+    "tiny-invariant": "^1.0.6",
+    "tiny-warning": "^1.0.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8"
+  }
+}

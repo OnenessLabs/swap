@@ -17,26 +17,6 @@ export function isAddress(value: any): string | false {
   }
 }
 
-export const switchChain = async (provider: any, chainId: number | string, preferAdd = false): Promise<void> => {
-  chainId = +chainId
-  const network = NETWORKs[chainId]
-  if (!network || !provider?.request) return
-  const req = {
-    method: provider.isWalletConnect ? 'wallet_switchEthereumChain' : 'wallet_addEthereumChain',
-    params: [
-      {
-        chainId: `0x${(+chainId).toString(16)}`,
-        chainName: network.name,
-        rpcUrls: [network.rpc],
-        nativeCurrency: { name: 'Bitcoin', symbol: 'BTC', decimals: 18 },
-        blockExplorerUrls: [network.scan]
-        // iconUrls: ['https://raw.githubusercontent.com/OnenessLabs/token-list/main/Tokens/Native/logo.svg']
-      }
-    ]
-  }
-  return provider.request(req)
-}
-
 const [domain] = ['onenesslabs.io']
 type Network = {
   chainId: string
@@ -161,4 +141,36 @@ export function escapeRegExp(string: string): string {
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
   if (currency === ETHER) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
+}
+
+const chainIdKey = 'last.chainId'
+const saveLastSelectedChainId = (chainId: number) => {
+  if (NETWORKs[chainId]) localStorage.setItem(chainIdKey, chainId + '')
+}
+export const getLastSelectedChainId = () => {
+  let savedChainId = +(localStorage.getItem(chainIdKey) ?? '')
+  if (NETWORKs[savedChainId]) return savedChainId
+  localStorage.removeItem(chainIdKey)
+  return
+}
+
+export const switchChain = async (provider: any, chainId: number | string, preferAdd = false): Promise<void> => {
+  chainId = +chainId
+  const network = NETWORKs[chainId]
+  if (!network || !provider?.request) return
+  const req = {
+    method: provider.isWalletConnect ? 'wallet_switchEthereumChain' : 'wallet_addEthereumChain',
+    params: [
+      {
+        chainId: `0x${(+chainId).toString(16)}`,
+        chainName: network.name,
+        rpcUrls: [network.rpc],
+        nativeCurrency: { name: 'Bitcoin', symbol: 'BTC', decimals: 18 },
+        blockExplorerUrls: [network.scan]
+        // iconUrls: ['https://raw.githubusercontent.com/OnenessLabs/token-list/main/Tokens/Native/logo.svg']
+      }
+    ]
+  }
+  await provider.request(req)
+  saveLastSelectedChainId(chainId)
 }

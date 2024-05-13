@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import { rpcMap, ChainIds, NETWORK_CHAIN_ID, switchChain } from '../utils'
+import { rpcMap, ChainIds, NETWORK_CHAIN_ID, switchChain, getLastSelectedChainId } from '../utils'
 // import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 // import { PortisConnector } from '@web3-react/portis-connector'
 
@@ -34,7 +34,7 @@ export const injected = new InjectedConnector({
 })
 
 export const walletconnect = new WalletConnectConnector({
-  defaultChainId: NETWORK_CHAIN_ID,
+  defaultChainId: getLastSelectedChainId() ?? NETWORK_CHAIN_ID,
   options: { projectId, optionalChains: ChainIds, rpcMap, showQrModal: true },
   switchChain
 })
