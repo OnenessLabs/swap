@@ -17,7 +17,27 @@ export function isAddress(value: any): string | false {
   }
 }
 
-const [domain, def] = ['onenesslabs.io', 2140]
+export const switchChain = async (provider: any, chainId: number | string, preferAdd = false): Promise<void> => {
+  chainId = +chainId
+  const network = NETWORKs[chainId]
+  if (!network || !provider?.request) return
+  const req = {
+    method: provider.isWalletConnect ? 'wallet_switchEthereumChain' : 'wallet_addEthereumChain',
+    params: [
+      {
+        chainId: `0x${(+chainId).toString(16)}`,
+        chainName: network.name,
+        rpcUrls: [network.rpc],
+        nativeCurrency: { name: 'Bitcoin', symbol: 'BTC', decimals: 18 },
+        blockExplorerUrls: [network.scan]
+        // iconUrls: ['https://raw.githubusercontent.com/OnenessLabs/token-list/main/Tokens/Native/logo.svg']
+      }
+    ]
+  }
+  return provider.request(req)
+}
+
+const [domain] = ['onenesslabs.io']
 type Network = {
   chainId: string
   name: string
@@ -48,9 +68,13 @@ export const NETWORKs: { [chainId in ChainId | string | number]: Network } = {
     charts: `https://info.swap.devnet.${domain}`
   }
 }
+export const rpcMap = Object.fromEntries(Object.entries(NETWORKs).map(r => [r[0], r[1].rpc]))
+export const ChainIds: ChainId[] = Object.keys(NETWORKs).map(r => +r)
 
-export const getChartsLink = (chainId: ChainId = def, path = '') => {
-  const network = NETWORKs[chainId] || NETWORKs[def]
+export const NETWORK_CHAIN_ID: number = +(process.env.REACT_APP_CHAIN_ID ?? '') || ChainIds[0]
+
+export const getChartsLink = (chainId: ChainId = NETWORK_CHAIN_ID, path = '') => {
+  const network = NETWORKs[chainId] || NETWORKs[NETWORK_CHAIN_ID]
   return `${network.charts}${path}`
 }
 
@@ -59,7 +83,7 @@ export function getEtherscanLink(
   data?: string,
   type?: 'transaction' | 'token' | 'address' | 'block'
 ): string {
-  const network = NETWORKs[chainId] || NETWORKs[def]
+  const network = NETWORKs[chainId] || NETWORKs[NETWORK_CHAIN_ID]
   switch (type) {
     case 'transaction': {
       return `${network.scan}/tx/${data}`

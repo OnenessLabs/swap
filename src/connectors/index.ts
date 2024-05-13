@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-// import { NETWORKs } from '../utils'
+import { rpcMap, ChainIds, NETWORK_CHAIN_ID, switchChain } from '../utils'
 // import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 // import { PortisConnector } from '@web3-react/portis-connector'
 
@@ -12,9 +12,9 @@ import { NetworkConnector } from './NetworkConnector'
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
 // const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY
 // const PORTIS_ID = process.env.REACT_APP_PORTIS_ID
-const WALLETCONNECT_BRIDGE_URL = process.env.REACT_APP_WALLETCONNECT_BRIDGE_URL
+const projectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID ?? ''
 
-export const NETWORK_CHAIN_ID: number = parseInt(process.env.REACT_APP_CHAIN_ID ?? '2140')
+export { NETWORK_CHAIN_ID }
 
 if (typeof NETWORK_URL === 'undefined') {
   throw new Error(`REACT_APP_NETWORK_URL must be a defined environment variable`)
@@ -33,12 +33,10 @@ export const injected = new InjectedConnector({
   supportedChainIds: [2140, 2141, 123666]
 })
 
-// mainnet only
 export const walletconnect = new WalletConnectConnector({
-  rpc: { [NETWORK_CHAIN_ID]: NETWORK_URL },
-  bridge: WALLETCONNECT_BRIDGE_URL,
-  qrcode: true,
-  pollingInterval: 15000
+  defaultChainId: NETWORK_CHAIN_ID,
+  options: { projectId, optionalChains: ChainIds, rpcMap, showQrModal: true },
+  switchChain
 })
 
 // mainnet only

@@ -1,11 +1,15 @@
 {
   "name": "@onenesslabs/swap",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "OnenessSwap Interface",
   "homepage": "/",
   "private": true,
   "devDependencies": {
     "@ethersproject/experimental": "^5.0.1",
+    "customize-cra": "^1.0.0",
+    "env-cmd": "10.1.0",
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.24.1",
+    "@babel/plugin-transform-optional-chaining": "^7.24.5",
     "@popperjs/core": "^2.4.4",
     "@reach/dialog": "^0.10.3",
     "@reach/portal": "^0.10.3",
@@ -39,7 +43,7 @@
     "@web3-react/fortmatic-connector": "^6.0.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/portis-connector": "^6.0.9",
-    "@web3-react/walletconnect-connector": "^6.1.1",
+    "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.0.9",
     "ajv": "^6.12.3",
     "cids": "^1.0.0",
@@ -79,7 +83,7 @@
     "react-popper": "^2.2.3",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^3.4.4",
     "react-spring": "^8.0.27",
     "react-use-gesture": "^6.0.14",
     "react-virtualized-auto-sizer": "^1.0.2",
@@ -99,14 +103,14 @@
     "workbox-strategies": "^6.1.0"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "react-app-rewired --openssl-legacy-provider start",
     "start:service-worker": "yarn build && yarn serve -s build",
-    "build": "react-scripts --openssl-legacy-provider build && run-s copy",
-    "build:testnet": "react-scripts --openssl-legacy-provider build && run-s copy",
-    "build:devnet": "cross-env REACT_APP_NODE_ENV=devnet react-scripts --openssl-legacy-provider build && run-s copy",
+    "build": "react-app-rewired --openssl-legacy-provider build && run-s copy",
+    "build:testnet": "env-cmd -f .env.testnet react-app-rewired --openssl-legacy-provider build && run-s copy",
+    "build:devnet": "env-cmd -f .env.devnet react-app-rewired --openssl-legacy-provider build && run-s copy",
     "copy": "cpy build/index.html build --flat --rename=404.html",
-    "test": "react-scripts --openssl-legacy-provider test --env=jsdom",
-    "eject": "react-scripts --openssl-legacy-provider eject",
+    "test": "react-app-rewired --openssl-legacy-provider test --env=jsdom",
+    "eject": "react-app-rewired --openssl-legacy-provider eject",
     "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'"
   },
   "eslintConfig": {
@@ -117,9 +121,8 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "defaults",
+      "not IE > 0"
     ],
     "development": [
       "last 1 chrome version",

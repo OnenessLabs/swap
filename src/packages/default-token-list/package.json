@@ -4,5 +4,6 @@
   "main": "default.tokenlist.json",
   "files": [
     "default.tokenlist.json"
-  ]
+  ],
+  "type": "module"
 }

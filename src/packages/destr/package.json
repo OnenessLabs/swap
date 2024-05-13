@@ -1,0 +1,10 @@
+{
+  "name": "destr",
+  "version": "2.0.3",
+  "AKA": "destr",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "type": "module"
+}

@@ -1,12 +1,13 @@
 {
   "name": "@uniswap/sdk",
   "version": "3.0.3",
-  "aliasSource": "@uniswap/v2-sdk@1.0.10",
+  "AKA": "@uniswap/v2-sdk@1.0.10",
   "license": "MIT",
   "main": "src/index.ts",
   "files": [
     "src"
   ],
+  "type": "module",
   "keywords": [
     "uniswap",
     "ethereum"

@@ -2,7 +2,7 @@ import { ChainId, JSBI, Percent, Token, WETH, getTokenObject } from '@uniswap/sd
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 // import { fortmatic, portis, walletconnect, walletlink } from '../connectors'
-// import { walletconnect } from '../connectors'
+import { walletconnect } from '../connectors'
 import { injected } from '../connectors'
 
 export const ROUTER_ADDRESS = '0xb128A49f1382c942A5Ca3BDa7227cC464D2B08E0'
@@ -160,16 +160,16 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     description: 'Easy-to-use browser extension.',
     href: null,
     color: '#E8831D'
+  },
+  WALLET_CONNECT: {
+    connector: walletconnect,
+    name: 'WalletConnect',
+    iconName: 'walletConnectIcon.svg',
+    description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
+    href: null,
+    color: '#4196FC',
+    mobile: true
   }
-  // WALLET_CONNECT: {
-  //   connector: walletconnect,
-  //   name: 'WalletConnect',
-  //   iconName: 'walletConnectIcon.svg',
-  //   description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
-  //   href: null,
-  //   color: '#4196FC',
-  //   mobile: true
-  // }
   // WALLET_LINK: {
   //   connector: walletlink,
   //   name: 'Coinbase Wallet',

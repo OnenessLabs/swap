@@ -3,11 +3,11 @@
   "version": "1.0.10",
   "license": "MIT",
   "description": "⚒️ An SDK for building applications on top of Uniswap V3",
-  "type": "module",
   "main": "src/index.ts",
   "files": [
     "src"
   ],
+  "type": "module",
   "repository": "https://github.com/Uniswap/uniswap-sdk-core.git",
   "keywords": [
     "uniswap",
