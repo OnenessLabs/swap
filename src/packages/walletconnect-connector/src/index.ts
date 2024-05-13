@@ -242,7 +242,7 @@ export class WalletConnectConnector extends AbstractConnector {
 
   public switchChain = async (chainId: number) => {
     if (!this.provider || !chainId) throw new Error('Bad request - switchChain')
-    // if (this._switchChain) return await this._switchChain(this.provider, chainId)
+    if (this._switchChain) return await this._switchChain(this.provider, chainId)
     return await this.provider!.request<void>({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: `0x${chainId!.toString(16)}` }]
